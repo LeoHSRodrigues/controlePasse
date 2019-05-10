@@ -66,7 +66,6 @@ class CadastrarLinha extends React.Component {
   state = {
     search: '',
   };
-  
 
   constructor(props) {
     super(props);
@@ -74,23 +73,22 @@ class CadastrarLinha extends React.Component {
       data: []
     };
   }
+  clickEventListener(item) {
+    console.log(item);
+  }
 
-  updateSearch = search => {
+ updateSearch = search => {
     this.setState({ search });
     if (search.length.toString() > '2'){
-      return fetch('https://www.sistemas.dftrans.df.gov.br/linha/find/'+search+'/10/short')
-      .then((response) => response.json())
-      .then((response) => {
-        var data = response.map(function(item) {
-        });
-        console.log(data);
-            this.setState({
-              data:[{id: "2", title: "oi", color:"#FF4500"}]
-            })
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+
+
+    buscarLinhas(search).then((responseJson) => {
+     teste = responseJson.map(function(item) {
+        // this.setState({
+        //     data:[{id:item.numero, title: item.numero + ' - ' + item.descricao, color: "#FF4500"}]
+        //   })
+      }, this)
+    });
     }
     else{
       this.setState({
@@ -183,6 +181,19 @@ export default class App extends React.Component {
   };
   render() {
     return <AppContainer />;
+  }
+}
+
+
+async function buscarLinhas(search) {
+  try {
+    let response = await fetch(
+      'https://www.sistemas.dftrans.df.gov.br/linha/find/'+search+'/10/short',
+    );
+    let responseJson = await response.json();
+    return responseJson;
+  } catch (error) {
+    console.error(error);
   }
 }
 
