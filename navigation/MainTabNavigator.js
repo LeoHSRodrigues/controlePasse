@@ -45,6 +45,7 @@ const SettingsStack = createStackNavigator({
 
 SettingsStack.navigationOptions = {
   tabBarLabel: 'Configurações',
+
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -93,6 +94,12 @@ export default createBottomTabNavigator({
           actions: [NavigationActions.navigate({ routeName: 'Settings' })],
         });
         navigation.dispatch(resetAction);
+      },
+      headerTintColor: '#ffffff',
+      headerStyle: {
+        backgroundColor: '#2F95D6',
+        borderBottomColor: '#ffffff',
+        borderBottomWidth: 3,
       },
     },
   },
